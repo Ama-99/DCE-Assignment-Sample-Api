@@ -1,0 +1,10 @@
+CREATE PROCEDURE GetActiveOrdersByCustomer
+    @CustomerId UNIQUEIDENTIFIER
+AS
+BEGIN
+    SELECT [Order].OrderId, Product.ProductName, [Order].OrderStatus, [Order].OrderType,
+           [Order].OrderedOn, [Order].ShippedOn
+    FROM [Order]
+    INNER JOIN Product ON [Order].ProductId = Product.ProductId
+    WHERE [Order].OrderBy = @CustomerId AND [Order].IsActive = 1;
+END;
